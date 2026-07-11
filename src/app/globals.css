@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   The Voicing Board — a committed, single-world "stage at night" palette.
+   Aubergine-black ground, lifted panels, brass-amber accent, hot-coral root.
+--------------------------------------------------------------------------- */
+:root {
+  --bg: #0c0a10;
+  --panel: #161320;
+  --ink: #efe9df;         /* warm off-white */
+  --muted: #9a9186;       /* mauve-grey */
+  --amber: #f0b45e;       /* brass / stage light — color tones */
+  --coral: #ff7a59;       /* hotter — the root of each voicing */
+  --line: #241f30;        /* hairline on the aubergine ground */
+  --line-bright: #4a4159;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-amber: var(--amber);
+  --color-coral: var(--coral);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-fraunces);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 15% -10%, #1a1426 0%, transparent 55%),
+    radial-gradient(900px 600px at 100% 0%, #191026 0%, transparent 50%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Pin the display + mono families so they always win over fallbacks. */
+.font-serif {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+.font-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
