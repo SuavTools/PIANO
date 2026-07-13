@@ -11,6 +11,8 @@
   --muted: #9a9186;       /* mauve-grey */
   --amber: #f0b45e;       /* brass / stage light — color tones */
   --coral: #ff7a59;       /* hotter — the root of each voicing */
+  --violet: #9b7cf0;      /* the slash bass, and scale overlays */
+  --teal: #4fd6c0;        /* the upper-structure triad, stacked on top */
   --line: #241f30;        /* hairline on the aubergine ground */
   --line-bright: #4a4159;
 }
@@ -22,6 +24,8 @@
   --color-muted: var(--muted);
   --color-amber: var(--amber);
   --color-coral: var(--coral);
+  --color-violet: var(--violet);
+  --color-teal: var(--teal);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-fraunces);
