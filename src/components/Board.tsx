@@ -7,6 +7,7 @@ import PlayModal from "./PlayModal";
 import SoloModal from "./SoloModal";
 import SoloWorkshop from "./SoloWorkshop";
 import TheoryModal from "./TheoryModal";
+import FamilyModal from "./FamilyModal";
 import GrooveModal from "./GrooveModal";
 import MelodyModal from "./MelodyModal";
 import { DEFAULT_MELODY, type MelodyOpts } from "@/lib/melody";
@@ -57,6 +58,7 @@ export default function Board() {
   const [audition, setAudition] = useState(true);
   const [toneId, setToneId] = useState<ToneId>("rhodes");
   const [uppersOn, setUppersOn] = useState(false);
+  const [familyFor, setFamilyFor] = useState<number | null>(null);
   const [groove, setGroove] = useState<Groove>(() => defaultGroove(4));
   const handleRef = useRef<ProgressionHandle | null>(null);
 
@@ -180,6 +182,12 @@ export default function Board() {
     );
   };
   const addSuggested = (wc: WorkingChord) => { edit((cs) => [...cs, wc]); hear(wc); };
+
+  /** Drop an approach (its ii–V, a passing diminished…) in front of a chord. */
+  const insertBefore = (i: number, wcs: WorkingChord[]) => {
+    edit((cs) => [...cs.slice(0, i), ...wcs, ...cs.slice(i)]);
+    if (wcs.length) hear(wcs[0]);
+  };
   const extend = (howMany: number, seed: number, principle: PrincipleId | "all") =>
     edit((cs) => extendProgression(cs, tonicPc, styleId, howMany, seed, principle));
 
@@ -517,6 +525,7 @@ export default function Board() {
               onMove={(dir) => moveChord(i, dir)}
               onOpenScales={() => { stop(); setScaleFor(i); }}
               onOpenSolo={() => { stop(); setSoloFor(i); }}
+              onOpenFamily={() => { stop(); setFamilyFor(i); }}
             />
             {i < built.length - 1 && (
               <VoiceLeading a={built[i]} b={built[i + 1]} tonicPc={tonicPc} />
@@ -652,6 +661,17 @@ export default function Board() {
       />
 
       <TheoryModal open={theoryOpen} onClose={() => setTheoryOpen(false)} style={style} />
+
+      <FamilyModal
+        key={`family-${familyFor ?? "none"}`}
+        open={familyFor !== null}
+        onClose={() => setFamilyFor(null)}
+        chord={familyFor !== null ? built[familyFor] ?? null : null}
+        working={familyFor !== null ? chords[familyFor] ?? null : null}
+        tonicPc={tonicPc}
+        simple={styleId === "pop" || styleId === "house"}
+        onInsert={(wcs) => { if (familyFor !== null) insertBefore(familyFor, wcs); }}
+      />
 
       <MelodyModal
         open={melodyOpen}

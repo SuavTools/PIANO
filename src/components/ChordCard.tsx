@@ -35,11 +35,12 @@ type Props = {
   onMove: (dir: -1 | 1) => void;
   onOpenScales: () => void;
   onOpenSolo: () => void;
+  onOpenFamily: () => void;
 };
 
 export default function ChordCard({
   chord, range, index, total, tonicPc, instrument, shapes, voice,
-  playing, someoneElsePlaying, onChange, onRemove, onMove, onOpenScales, onOpenSolo,
+  playing, someoneElsePlaying, onChange, onRemove, onMove, onOpenScales, onOpenSolo, onOpenFamily,
 }: Props) {
   const [pressed, setPressed] = useState(false);
   const lit = playing || pressed;
@@ -272,6 +273,16 @@ export default function ChordCard({
                 {chord.scaleOptions[chord.scale!].note}
               </p>
             )}
+          </div>
+
+          <div className="col-span-2">
+            <button
+              type="button"
+              onClick={onOpenFamily}
+              className="w-full rounded-lg bg-[var(--violet)]/10 px-3 py-2 font-mono text-xs text-[var(--violet)] ring-1 ring-[var(--violet)]/40 transition hover:bg-[var(--violet)]/20"
+            >
+              ◇ Getting here — its ii–V, family &amp; approaches
+            </button>
           </div>
 
           <div className="col-span-2">
